@@ -1,41 +1,56 @@
-import {
-  AngularNodeAppEngine,
-  createNodeRequestHandler,
-  isMainModule,
-  writeResponseToNodeResponse,
-} from '@angular/ssr/node';
+import { AngularNodeAppEngine, createNodeRequestHandler, isMainModule, writeResponseToNodeResponse } from '@angular/ssr/node';
 import express from 'express';
 import { join } from 'node:path';
 import { fileURLToPath } from 'url';
 
-// Ajuste para ES Module (obteniendo __dirname en módulos ES)
-const __dirname = fileURLToPath(new URL('.', import.meta.url)); // Esto reemplaza __dirname
+// Usar import.meta.url para obtener la ruta del archivo y luego obtener __dirname
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = join(__filename, '/');  // Esto es lo que reemplaza a __dirname en ES modules
 
-const browserDistFolder = join(__dirname, '../browser'); // Establecer correctamente la ruta al directorio 'browser'
+const browserDistFolder = join(__dirname, '../browser');  // Ruta de los archivos de Angular
 
 const app = express();
 
-// Crear una nueva instancia de AngularNodeAppEngine sin parámetros adicionales
+// Crear la instancia de AngularNodeAppEngine sin pasarle parámetros
 const angularApp = new AngularNodeAppEngine();
 
+/**
+ * Serve static files from /browser
+ */
 app.use(
   express.static(browserDistFolder, {
     maxAge: '1y',
     index: false,
     redirect: false,
-  }),
+  })
 );
 
-// Agregar prerendering y manejo de rutas dinámicas (como 'detalle/:id')
+/**
+ * Manejo de rutas dinámicas para prerenderización
+ * Cuando se solicita la ruta '/detalle/:id', el parámetro 'id' se extrae de la URL
+ */
+app.get('/detalle/:id', (req, res, next) => {
+  const id = req.params.id;  // Obtener el parámetro 'id' de la URL
+  // Aquí, podemos crear el parámetro para la prerenderización
+  const prerenderParams = { id };  // Pasamos el parámetro 'id' para prerenderizar la ruta
+
+  // Usamos angularApp para manejar la solicitud
+  angularApp
+    .handle(req, prerenderParams)  // Pasamos los parámetros para prerenderizar correctamente
+    .then((response) => {
+      if (response) {
+        writeResponseToNodeResponse(response, res);  // Enviar la respuesta prerenderizada
+      } else {
+        next();
+      }
+    })
+    .catch(next);
+});
+
+/**
+ * Handle all other requests by rendering the Angular application.
+ */
 app.use((req, res, next) => {
-  const route = req.url; // Obtener la URL actual
-
-  // Manejo específico para las rutas dinámicas de detalle
-  if (route.startsWith('/detalle/')) {
-    const id = route.split('/detalle/')[1];  // Obtener el parámetro 'id' desde la URL
-    req.params = { id };  // Pasar el parámetro id a la solicitud
-  }
-
   angularApp
     .handle(req)
     .then((response) =>
@@ -44,6 +59,10 @@ app.use((req, res, next) => {
     .catch(next);
 });
 
+/**
+ * Start the server if this module is the main entry point.
+ * The server listens on the port defined by the PORT environment variable, or defaults to 4000.
+ */
 if (isMainModule(import.meta.url)) {
   const port = process.env['PORT'] || 4000;
   app.listen(port, (error) => {
@@ -54,4 +73,7 @@ if (isMainModule(import.meta.url)) {
   });
 }
 
+/**
+ * Request handler used by the Angular CLI (for dev-server and during build) or Firebase Cloud Functions.
+ */
 export const reqHandler = createNodeRequestHandler(app);

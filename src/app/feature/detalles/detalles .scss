@@ -1,0 +1,67 @@
+.detalle-libro {
+    display: flex;
+    justify-content: center;
+    margin: 2rem;
+  
+    .card {
+      background-color: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      padding: 2rem;
+      max-width: 600px;
+      width: 100%;
+      transition: transform 0.3s ease;
+  
+      &:hover {
+        transform: translateY(-5px);
+      }
+  
+      .titulo {
+        font-size: 2rem;
+        color: #2c3e50;
+        margin-bottom: 1rem;
+        text-align: center;
+      }
+  
+      .info {
+        p {
+          font-size: 1rem;
+          color: #34495e;
+          margin: 0.5rem 0;
+  
+          span {
+            font-weight: 600;
+            color: #1abc9c;
+          }
+        }
+      }
+  
+      .btn-volver {
+        display: block;
+        margin: 1.5rem auto 0;
+        padding: 0.75rem 1.5rem;
+        background-color: #1abc9c;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: background-color 0.3s ease;
+  
+        &:hover {
+          background-color: #16a085;
+        }
+      }
+    }
+  }
+  
+  .no-libro {
+    text-align: center;
+    margin-top: 3rem;
+    color: #e74c3c;
+  
+    .btn-volver {
+      margin-top: 1rem;
+    }
+  }
+  

@@ -1,0 +1,17 @@
+<section class="catalogo">
+  <h1>Catálogo de Libros</h1>
+  <p class="subtitle">Explora nuestra colección de libros y descubre tu próxima lectura favorita 📚</p>
+
+  <div class="libros-container">
+    <div *ngFor="let libro of libros" class="libro-card">
+      <div class="libro-info">
+        <h2>{{ libro.titulo }}</h2>
+        <p><strong>Autor:</strong> {{ libro.autor }}</p>
+        <p><strong>Editorial:</strong> {{ libro.editorial }}</p>
+        <p><strong>Año:</strong> {{ libro['año'] }}</p> <!-- Usando corchetes para 'año' -->
+        <p><strong>Género:</strong> {{ libro.genero }}</p>
+      </div>
+      <button class="btn-detalle" (click)="verDetalle(libro.id)">Ver Detalle</button>
+    </div>
+  </div>
+</section>

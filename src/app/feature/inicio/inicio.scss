@@ -1,0 +1,123 @@
+.home {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 100vh;
+  padding: 3rem;
+  background: linear-gradient(135deg, #f0f8f5, #d9e2ec);
+  color: #1a1a1a;
+  font-family: 'Poppins', sans-serif;
+
+  .home-content {
+    flex: 1;
+    max-width: 600px;
+    padding: 1rem;
+
+    h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      color: #0d3b66;
+      opacity: 0;
+      transform: translateY(-20px);
+      animation: fadeInUp 1s forwards 0.3s;
+    }
+
+    .subtitle {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      color: #0d3b66;
+      line-height: 1.5;
+      opacity: 0;
+      transform: translateY(-20px);
+      animation: fadeInUp 1s forwards 0.5s;
+    }
+
+    .description {
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+      color: #334e68;
+      line-height: 1.6;
+      opacity: 0;
+      transform: translateY(-20px);
+      animation: fadeInUp 1s forwards 0.7s;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 1rem;
+
+      a {
+        text-decoration: none;
+        font-weight: 600;
+        padding: 0.8rem 2rem;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+      }
+
+      .btn-primary {
+        background: #4caf50;
+        color: #fff;
+        &:hover {
+          background: #43a047;
+          transform: scale(1.05);
+        }
+      }
+
+      .btn-secondary {
+        background: #f9f9f9;
+        color: #4caf50;
+        border: 2px solid #4caf50;
+        &:hover {
+          background: #4caf50;
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  .home-illustration {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+      max-width: 400px;
+      width: 100%;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s forwards 1s;
+    }
+  }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 992px) {
+    flex-direction: column-reverse;
+    text-align: center;
+    .home-illustration {
+      margin-bottom: 2rem;
+    }
+  }
+
+  @media (max-width: 576px) {
+    h1 {
+      font-size: 2.2rem;
+    }
+    .subtitle, .description {
+      font-size: 1rem;
+    }
+    .buttons {
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+  }
+}
+
+

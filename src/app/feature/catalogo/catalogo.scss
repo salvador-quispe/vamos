@@ -1,0 +1,94 @@
+.catalogo {
+  padding: 3rem;
+  background-color: #f0f4f8;
+  font-family: 'Poppins', sans-serif;
+  color: #1a1a1a;
+
+  h1 {
+    font-size: 2.8rem;
+    color: #0d3b66;
+    margin-bottom: 0.5rem;
+    text-align: center;
+  }
+
+  .subtitle {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #334e68;
+    margin-bottom: 2rem;
+  }
+
+  .libros-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+
+    .libro-card {
+      background-color: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      }
+
+      .libro-info {
+        h2 {
+          font-size: 1.5rem;
+          color: #0d3b66;
+          margin-bottom: 0.5rem;
+        }
+
+        p {
+          font-size: 1rem;
+          color: #334e68;
+          margin: 0.2rem 0;
+        }
+      }
+
+      .libro-img {
+        width: 100%;
+        height: auto;
+        max-width: 200px;
+        margin: 0 auto;
+        border-radius: 8px;
+        object-fit: cover;
+      }
+
+      .btn-detalle {
+        margin-top: 1rem;
+        padding: 0.6rem 1.2rem;
+        border: none;
+        border-radius: 10px;
+        background-color: #4caf50;
+        color: #fff;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+
+        &:hover {
+          background-color: #43a047;
+          transform: scale(1.05);
+        }
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 2rem;
+
+    h1 {
+      font-size: 2.2rem;
+    }
+
+    .subtitle {
+      font-size: 1rem;
+    }
+  }
+}

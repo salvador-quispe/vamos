@@ -1,0 +1,18 @@
+<section *ngIf="libro" class="detalle-libro">
+    <div class="card">
+      <h1 class="titulo">{{ libro?.titulo }}</h1>
+      <div class="info">
+        <p><strong>Autor:</strong> {{ libro?.autor }}</p>
+        <p><strong>Editorial:</strong> {{ libro?.editorial }}</p>
+        <p><strong>Año:</strong> {{ libro?.['año'] }}</p> <!-- Usamos el acceso por corchetes para 'año' -->
+        <p><strong>Género:</strong> {{ libro?.genero }}</p>
+        <p><strong>Descripción:</strong> {{ libro?.descripcion }}</p>
+      </div>
+    </div>
+  </section>
+  
+  <section *ngIf="!libro" class="no-libro">
+    <p>Libro no encontrado.</p>
+    <button routerLink="/catalogo" class="btn-volver">Volver al Catálogo</button>
+  </section>
+  
